@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
-def expand(data):
+
+def star1(data):
     in_data = list(data)
     out_data = []
     while len(in_data) != 0:
@@ -21,29 +22,24 @@ def expand(data):
     return ''.join(out_data)
 
 
-INPUT = "ADVENT"
-assert expand(INPUT) == "ADVENT"
-assert len(expand(INPUT)) == 6
-
-INPUT = "A(1x5)BC"
-assert expand(INPUT) == "ABBBBBC"
-assert len(expand(INPUT)) == 7
-
-INPUT = "(3x3)XYZ"
-assert expand(INPUT) == "XYZXYZXYZ"
-assert len(expand(INPUT)) == 9
-
-INPUT = "A(2x2)BCD(2x2)EFG"
-assert expand(INPUT) == "ABCBCDEFEFG"
-assert len(expand(INPUT)) == 11
-
-INPUT = "(6x1)(1x3)A"
-assert expand(INPUT) == "(1x3)A"
-assert len(expand(INPUT)) == 6
-
-INPUT = "X(8x2)(3x3)ABCY"
-assert expand(INPUT) == "X(3x3)ABC(3x3)ABCY"
-assert len(expand(INPUT)) == 18
+def star2(data):
+    in_data = list(data)
+    data_length = 0
+    while len(in_data) != 0:
+        char = in_data.pop(0)
+        if char != "(":
+            data_length = data_length + 1
+        else:
+            marker = []
+            rep_sec = []
+            while in_data[0] != ")":
+                marker.append(in_data.pop(0))
+            in_data.pop(0)
+            a, b = ''.join(marker).split('x')
+            for _ in range(0, int(a)):
+                rep_sec.append(in_data.pop(0))
+            data_length = data_length + (star2(rep_sec) * int(b))
+    return data_length
 
 
 def read_input_moves(filename):
@@ -54,11 +50,7 @@ def read_input_moves(filename):
     return content
 INPUT = (read_input_moves('./input'))
 
-print("Star 1: ", len(expand(INPUT[0])))
-
-
-
-
-
+print("Star 1: ", len(star1(INPUT[0])))
+print("Star 2: ", star2(INPUT[0]))
 
 
