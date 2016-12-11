@@ -45,7 +45,6 @@ def star2():
 
 
 if __name__ == '__main__':
-
     # build a list with all the bots
     bots = {}
     for line in INPUT:
