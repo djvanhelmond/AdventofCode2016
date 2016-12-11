@@ -1,14 +1,5 @@
 #!/usr/local/bin/python3
 
-def read_input_moves(filename):
-    content = []
-    with open(filename) as input_file:
-        for lines in input_file:
-            content.append(lines)
-    return content
-INPUT = (read_input_moves('./input'))
-
-
 class Bot():
     def __init__(self, bot_id, next_low, next_high):
         self.bot_id = bot_id
@@ -23,7 +14,6 @@ class Bot():
         else:
             self.values[1] = value
             self.is_actionable = True
-
 
     def execute(self):
         self.is_actionable = False
@@ -41,29 +31,13 @@ class Bot():
             outputs[self.next_high[1]]=high_val
 
 
-bots = {}
-outputs = {}
-
-# build a list with all the bots
-for line in INPUT:
-    if line.split()[0] == 'bot':
-        b_id = int(line.split()[1])
-        low = ((line.split()[5]), int(line.split()[6]))
-        high = ((line.split()[10]), int(line.split()[11]))
-        bots[b_id]=Bot(b_id, low, high)
-
-# hand out all the input values to the bots
-for line in INPUT:
-    if line.split()[0] == 'value':
-        bots[int(line.split()[5])].add_value(int(line.split()[1]))
-
-# while any bot still has values to process, repeat the execution
-while any([bots[n].is_actionable for n in range(len(bots))]):
-    for n in range(len(bots)):
-        if bots[n].is_actionable:
-            bots[n].execute()
-
-
+def read_input_moves(filename):
+    content = []
+    with open(filename) as input_file:
+        for lines in input_file:
+            content.append(lines)
+    return content
+INPUT = (read_input_moves('./input'))
 
 def star1():
     bot_number = None
@@ -75,8 +49,32 @@ def star2():
     return outputs[0]*outputs[1]*outputs[2]
 
 
-print("Star 1 - bot number: ", star1())
-print("Star 2 - output values: ", star2())
+if __name__ == '__main__':
+
+    # build a list with all the bots
+    bots = {}
+    for line in INPUT:
+        if line.split()[0] == 'bot':
+            b_id = int(line.split()[1])
+            low = ((line.split()[5]), int(line.split()[6]))
+            high = ((line.split()[10]), int(line.split()[11]))
+            bots[b_id]=Bot(b_id, low, high)
+
+    # hand out all the input values to the bots
+    for line in INPUT:
+        if line.split()[0] == 'value':
+            bots[int(line.split()[5])].add_value(int(line.split()[1]))
+
+    # while any bot still has values to process, repeat the execution-loop
+    outputs = {}
+    while any([bots[n].is_actionable for n in range(len(bots))]):
+        for n in range(len(bots)):
+            if bots[n].is_actionable:
+                bots[n].execute()
+
+    # return the output required
+    print("Star 1 - bot number: ", star1())
+    print("Star 2 - output values: ", star2())
 
 
 
