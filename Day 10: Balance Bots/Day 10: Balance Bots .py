@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     outputs = {} # a list that will contain all the outputs
     # with all the input microchips loaded, there must now be bots that are actionable (i.e. have
-    # enough microchips to hand them over to the next bot.
+    # enough microchips to hand them over to the next bot).
     # this loop will keep running as long as there are bots that have enough microchips.
     while any([bots[n].is_actionable for n in range(len(bots))]):
         for n in range(len(bots)):
