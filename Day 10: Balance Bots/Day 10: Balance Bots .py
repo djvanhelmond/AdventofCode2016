@@ -24,7 +24,7 @@ class Bot():
         When a new bot gets instantiated, it needs its instructions set
         :param bot_id:      The ID of the Bot
         :param next_low:    The action that it should do with the low value. Tuple, e.g. (bot, 34)
-        :param next_high:   The action that it should do with the low value. Tuple, e.g. (output, 34)
+        :param next_high:   The action that it should do with the high value. Tuple, e.g. (output, 7)
         """
         self.bot_id = bot_id
         self.next_low = next_low
