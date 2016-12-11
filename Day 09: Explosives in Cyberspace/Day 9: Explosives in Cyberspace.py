@@ -19,7 +19,7 @@ def star1(data):
                 rep_sec.append(in_data.pop(0))
             for _ in range(0, int(b)):
                 out_data.extend(rep_sec)
-    return ''.join(out_data)
+    return len(''.join(out_data))
 
 
 def star2(data):
@@ -50,7 +50,7 @@ def read_input_moves(filename):
     return content
 INPUT = (read_input_moves('./input'))
 
-print("Star 1: ", len(star1(INPUT[0])))
+print("Star 1: ", star1(INPUT[0]))
 print("Star 2: ", star2(INPUT[0]))
 
 
