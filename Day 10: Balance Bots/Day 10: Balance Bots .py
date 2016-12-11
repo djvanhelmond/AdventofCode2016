@@ -17,18 +17,14 @@ class Bot():
 
     def execute(self):
         self.is_actionable = False
-        low_val = (min(self.values))
-        high_val = (max(self.values))
-        # move low
         if self.next_low[0] == 'bot':
-            bots[self.next_low[1]].add_value(low_val)
+            bots[self.next_low[1]].add_value(min(self.values))
         else:
-            outputs[self.next_low[1]]=low_val
-        # move high
+            outputs[self.next_low[1]]=min(self.values)
         if self.next_high[0] == 'bot':
-            bots[self.next_high[1]].add_value(high_val)
+            bots[self.next_high[1]].add_value(max(self.values))
         else:
-            outputs[self.next_high[1]]=high_val
+            outputs[self.next_high[1]]=max(self.values)
 
 
 def read_input_moves(filename):
@@ -40,7 +36,6 @@ def read_input_moves(filename):
 INPUT = (read_input_moves('./input'))
 
 def star1():
-    bot_number = None
     for n in bots:
         if (min(bots[n].values) == 17) and (max(bots[n].values) == 61):
             return bots[n].bot_id
