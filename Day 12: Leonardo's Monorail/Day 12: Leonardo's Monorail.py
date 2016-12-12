@@ -18,39 +18,38 @@ class Computer():
         self.registers["b"] = 0
         self.registers["c"] = 0
         self.registers["d"] = 0
+        self.__instr_set = {
+            'cpy': self.__cpy,
+            'inc': self.__inc,
+            'dec': self.__dec,
+            'jnz': self.__jnz
+        }
 
-    def cpy(self, x, y):
+    def __cpy(self, x, y):
         if x.isalpha():
             x = self.registers[x]
         self.registers[y] = int(x)
 
-    def inc(self, x):
+    def __inc(self, x):
         self.registers[x] += 1
 
-    def dec(self, x):
+    def __dec(self, x):
         self.registers[x] -= 1
 
-    def jnz(self, x, y):
+    def __jnz(self, x, y):
         if x.isalpha():
             x = self.registers[x]
         if int(x) != 0:
             self.instruction_register += int(y) - 1
 
-    def execute(self):
+    def __execute(self):
         inst = self.instruction_list[self.instruction_register].split()
         self.instruction_register += 1
-        if inst[0] == "cpy":
-            self.cpy(inst[1], inst[2])
-        if inst[0] == "inc":
-            self.inc(inst[1])
-        if inst[0] == "dec":
-            self.dec(inst[1])
-        if inst[0] == "jnz":
-            self.jnz(inst[1], inst[2])
+        self.__instr_set[inst[0]](*inst[1:])
 
     def run(self):
         while self.instruction_register < len(self.instruction_list):
-            self.execute()
+            self.__execute()
 
 
 def star1(inst_list):
