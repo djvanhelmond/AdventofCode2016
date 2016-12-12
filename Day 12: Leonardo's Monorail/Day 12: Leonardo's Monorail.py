@@ -21,9 +21,8 @@ class Computer():
 
     def cpy(self, x, y):
         if x.isalpha():
-            self.registers[y] = self.registers[x]
-        else:
-            self.registers[y] = int(x)
+            x = self.registers[x]
+        self.registers[y] = int(x)
 
     def inc(self, x):
         self.registers[x] += 1
@@ -33,11 +32,9 @@ class Computer():
 
     def jnz(self, x, y):
         if x.isalpha():
-            if self.registers[x] != 0:
-                self.instruction_register += int(y) - 1
-        else:
-            if int(x) != 0:
-                self.instruction_register += int(y) - 1
+            x = self.registers[x]
+        if int(x) != 0:
+            self.instruction_register += int(y) - 1
 
     def execute(self):
         inst = self.instruction_list[self.instruction_register].split()
