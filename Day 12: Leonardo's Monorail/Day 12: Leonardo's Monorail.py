@@ -53,8 +53,6 @@ class Computer():
             self.execute()
 
 
-INPUT = read_instructions('./input')
-
 def star1(inst_list):
     monorail = Computer(inst_list)
     monorail.run()
@@ -67,8 +65,10 @@ def star2(inst_list):
     return monorail.registers["a"]
 
 
-print("Star 1: ", star1(INPUT))
-print("Star 2: ", star2(INPUT))
+if __name__ == '__main__':
+    INPUT = read_instructions('./input')
+    print("Star 1: ", star1(INPUT))
+    print("Star 2: ", star2(INPUT))
 
 
 
