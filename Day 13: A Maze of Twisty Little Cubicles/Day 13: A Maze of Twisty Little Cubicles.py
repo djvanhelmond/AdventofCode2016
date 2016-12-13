@@ -61,13 +61,31 @@ class BunnyOffice():
 
 def star1():
     DESIGNERS_FAVORITE_NUMBER = 1362
+    b_office = BunnyOffice(40, 40, DESIGNERS_FAVORITE_NUMBER)
     START = "1,1"
     END = "39,31"
-
-    b_office = BunnyOffice(40, 40, DESIGNERS_FAVORITE_NUMBER)
 #    b_office.show(spf.shortestPath(b_office.G, START, END))
     return len(spf.shortestPath(b_office.G, START, END))-1
 
+def star2():
+    DESIGNERS_FAVORITE_NUMBER = 1362
+    b_office = BunnyOffice(40, 40, DESIGNERS_FAVORITE_NUMBER)
+    START = "1,1"
+    sum = 0
+    for i in range(b_office.height):
+        for j in range(b_office.width):
+            if b_office.layout[i, j]:
+                end = str(i)+","+str(j)
+                try:
+#                    b_office.show(spf.shortestPath(b_office.G, START, end))
+                    if len(spf.shortestPath(b_office.G, START, end)) <= 51:
+                        sum += 1
+                except:
+                    None
+    return sum
+
+
 if __name__ == '__main__':
     print("Star 1: ", star1())
+    print("Star 2: ", star2())
 
