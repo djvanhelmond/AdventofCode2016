@@ -11,9 +11,33 @@ class BunnyOffice():
         self.layout = numpy.zeros((self.height, self.width), dtype=bool)
         for i in range(self.height):
             for j in range(self.width):
-                self.layout[i,j] = self.is_open_space(j,i) # i, j reversed because numpy has a rotated layout
+                self.layout[i,j] = self.__is_open_space(j,i) # i, j reversed because numpy has a rotated layout
         self.G = {}
-        self.build_graph()
+        self.__build_graph()
+
+
+    def __is_open_space(self, x, y):
+        n = (x*x + 3*x + 2*x*y + y + y*y) + self.dfn
+        return sum([ int(x) for x in list(bin(n)[2:]) ]) % 2 == 0
+
+
+    def __build_graph(self):
+        for i in range(self.height):
+            for j in range(self.width):
+                if self.layout[i,j]:
+                    self.G[str(i)+","+str(j)] = {}
+                    if (i-1 >= 0):
+                        if self.layout[i-1,j]:
+                            self.G[str(i)+","+str(j)][str(i - 1)+","+str(j)] = 1
+                    if (i+1 < self.height):
+                        if self.layout[i+1,j]:
+                            self.G[str(i)+","+str(j)][str(i + 1) + "," + str(j)] = 1
+                    if (j-1 >= 0):
+                        if self.layout[i,j-1]:
+                            self.G[str(i)+","+str(j)][str(i) + "," + str(j - 1)] = 1
+                    if (j+1 < self.width):
+                        if self.layout[i,j+1]:
+                            self.G[str(i)+","+str(j)][str(i) + "," + str(j + 1)] = 1
 
 
     def show(self, path = [""]):
@@ -33,29 +57,6 @@ class BunnyOffice():
                         line.append("#")
             print(''.join(line))
 
-
-    def is_open_space(self, x, y):
-        n = (x*x + 3*x + 2*x*y + y + y*y) + self.dfn
-        return sum([ int(x) for x in list(bin(n)[2:]) ]) % 2 == 0
-
-
-    def build_graph(self):
-        for i in range(self.height):
-            for j in range(self.width):
-                if self.layout[i,j]:
-                    self.G[str(i)+","+str(j)] = {}
-                    if (i-1 >= 0):
-                        if self.layout[i-1,j]:
-                            self.G[str(i)+","+str(j)][str(i - 1)+","+str(j)] = 1
-                    if (i+1 < self.height):
-                        if self.layout[i+1,j]:
-                            self.G[str(i)+","+str(j)][str(i + 1) + "," + str(j)] = 1
-                    if (j-1 >= 0):
-                        if self.layout[i,j-1]:
-                            self.G[str(i)+","+str(j)][str(i) + "," + str(j - 1)] = 1
-                    if (j+1 < self.width):
-                        if self.layout[i,j+1]:
-                            self.G[str(i)+","+str(j)][str(i) + "," + str(j + 1)] = 1
 
 
 def star1():
