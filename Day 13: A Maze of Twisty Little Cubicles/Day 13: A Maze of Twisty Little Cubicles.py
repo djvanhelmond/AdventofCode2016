@@ -4,7 +4,7 @@ import ShortestPath as spf
 
 
 class BunnyOffice():
-    def __init__(self, height, width, G={}):
+    def __init__(self, height, width):
         self.G = {}
         self.height = height
         self.width = width
