@@ -85,5 +85,4 @@ def star2(instruction_list, width, height):
     return ''.join(code)
 
 
-print("Star 1: ", star1(INPUT, 50, 6))
-print("Star 2: ", star2(INPUT, 50, 6))
+§print("Star 2: ", star2(INPUT, 50, 6))

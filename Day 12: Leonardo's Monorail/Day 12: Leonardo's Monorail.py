@@ -9,10 +9,10 @@ def read_instructions(filename):
     return content
 
 
-class Computer():
+class BunnyComputer():
     def __init__(self, instruction_list):
         self.instruction_list = instruction_list
-        self.instruction_register = 0
+        self.program_counter = 0
         self.registers = OrderedDict()
         self.registers["a"] = 0
         self.registers["b"] = 0
@@ -40,25 +40,25 @@ class Computer():
         if x.isalpha():
             x = self.registers[x]
         if int(x) != 0:
-            self.instruction_register += int(y) - 1
+            self.program_counter += int(y) - 1
 
     def __execute(self):
-        inst = self.instruction_list[self.instruction_register].split()
-        self.instruction_register += 1
-        self.__instr_set[inst[0]](*inst[1:])
+        instruction_register = self.instruction_list[self.program_counter].split()
+        self.program_counter += 1
+        self.__instr_set[instruction_register[0]](*instruction_register[1:])
 
     def run(self):
-        while self.instruction_register < len(self.instruction_list):
+        while self.program_counter < len(self.instruction_list):
             self.__execute()
 
 
 def star1(inst_list):
-    monorail = Computer(inst_list)
+    monorail = BunnyComputer(inst_list)
     monorail.run()
     return monorail.registers["a"]
 
 def star2(inst_list):
-    monorail = Computer(inst_list)
+    monorail = BunnyComputer(inst_list)
     monorail.registers["c"] = 1
     monorail.run()
     return monorail.registers["a"]
