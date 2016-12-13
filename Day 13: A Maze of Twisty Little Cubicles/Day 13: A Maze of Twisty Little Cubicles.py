@@ -5,14 +5,14 @@ import ShortestPath as spf
 
 class BunnyOffice():
     def __init__(self, height, width, dfn):
-        self.G = {}
-        self.dfn = dfn
         self.height = height
         self.width = width
+        self.dfn = dfn
         self.layout = numpy.zeros((self.height, self.width), dtype=bool)
         for i in range(self.height):
             for j in range(self.width):
                 self.layout[i,j] = self.is_open_space(j,i) # i, j reversed because numpy has a rotated layout
+        self.G = {}
         self.build_graph()
 
 
@@ -59,13 +59,14 @@ class BunnyOffice():
 
 
 def star1():
-    start = "1,1"
-    end = "39,31"
-#    m.show(spf.shortestPath(m.G, start, end))
-    return len(spf.shortestPath(m.G, start, end))-1
+    DESIGNERS_FAVORITE_NUMBER = 1362
+    START = "1,1"
+    END = "39,31"
+
+    b_office = BunnyOffice(40, 40, DESIGNERS_FAVORITE_NUMBER)
+#    b_office.show(spf.shortestPath(b_office.G, START, END))
+    return len(spf.shortestPath(b_office.G, START, END))-1
 
 if __name__ == '__main__':
-    DESIGNERS_FAVORITE_NUMBER = 1362
-    m = BunnyOffice(40, 40, DESIGNERS_FAVORITE_NUMBER)
     print("Star 1: ", star1())
 
