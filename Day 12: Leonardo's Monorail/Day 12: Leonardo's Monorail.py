@@ -1,5 +1,5 @@
 #!/usr/local/bin/python3
-from collections import OrderedDict
+from collections import defaultdict
 
 def read_instructions(filename):
     content = []
@@ -13,11 +13,7 @@ class BunnyComputer():
     def __init__(self, instruction_list):
         self.instruction_list = instruction_list
         self.program_counter = 0
-        self.registers = OrderedDict()
-        self.registers["a"] = 0
-        self.registers["b"] = 0
-        self.registers["c"] = 0
-        self.registers["d"] = 0
+        self.registers = defaultdict(int)
         self.__instr_set = {
             'cpy': self.__cpy,
             'inc': self.__inc,
