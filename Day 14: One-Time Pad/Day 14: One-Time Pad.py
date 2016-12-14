@@ -51,36 +51,25 @@ class OTP():
                     delete_list.append(n)
         self.candidate_keys = [x for x in self.candidate_keys if x not in delete_list]
 
-    def run_star1(self):
+    def run(self, star):
         while len(self.valid_keys) < 63:
             self.counter += 1
-            self.__gen_next_key()
-            self.__purge_old_candidates()
-            self.__eval_if_candidate_key()
-            self.__eval_if_valid_key()
-
-    def run_star2(self):
-        while len(self.valid_keys) < 63:
-            self.counter += 1
-            self.__gen_next_stretched_key()
+            if star == 1:
+                self.__gen_next_key()
+            elif star == 2:
+                self.__gen_next_stretched_key()
             self.__purge_old_candidates()
             self.__eval_if_candidate_key()
             self.__eval_if_valid_key()
 
 
-def star1():
+def star(star):
     onetimepad = OTP(SALT)
-    onetimepad.run_star1()
+    onetimepad.run(star)
     return onetimepad.valid_keys[63][0] # key 63 is the 64th key, [0] is the key index
-
-def star2():
-    onetimepad = OTP(SALT)
-    onetimepad.run_star2()
-    return onetimepad.valid_keys[63][0] # key 63 is the 64th key, [0] is the key index
-
 
 if __name__ == '__main__':
-    print("Star 1: ", star1())
-    print("Star 2: ", star2())
+    print("Star 1: ", star(1))
+    print("Star 2: ", star(2))
 
 
