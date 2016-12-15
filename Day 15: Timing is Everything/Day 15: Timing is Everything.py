@@ -7,7 +7,7 @@ class Disc():
         self.total_positions = tot_pos
         self.current_position = init_pos
 
-    def is_open(self, time=0):
+    def is_open(self):
         return (self.current_position + self.id) % self.total_positions == 0
 
 
