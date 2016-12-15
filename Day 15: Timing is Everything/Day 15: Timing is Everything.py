@@ -8,7 +8,7 @@ class Disc():
         self.current_position = init_pos
 
     def is_open(self, time=0):
-        return (self.current_position + time) % self.total_positions == 0
+        return (self.current_position + self.id) % self.total_positions == 0
 
 
 class Kinetic_Sculpture():
@@ -32,7 +32,7 @@ def run(setup):
     for i in range(len(setup)):
         ks.configure_disc(setup[i])
     #while not all disks are open at the right moment
-    while not all([disc.is_open(disc.id) for disc in ks.all_discs]):
+    while not all([disc.is_open() for disc in ks.all_discs]):
         # increase the time by 1 second
         ks.tick()
     # return me the right time
