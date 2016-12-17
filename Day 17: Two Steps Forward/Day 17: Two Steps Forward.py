@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 import hashlib
-import ShortestPath as spf
+
 
 
 def hash_key(value):
@@ -16,6 +16,7 @@ class SecureVault():
         self.possible_path_to_vault = []
         self.G = {}
         self.__build_graph("")
+
 
     def __open_doors(self, path):
         lockstate = hash_key(self.passcode+path)[0:4]
@@ -34,9 +35,9 @@ class SecureVault():
             if char == "L": current_room[0] -= 1
             if char == "R": current_room[0] += 1
 
-            if (current_room[0] < 1) or (current_room[0] > 5):
+            if (current_room[0] < 1) or (current_room[0] > 4):
                 return False
-            if (current_room[1] < 1) or (current_room[1] > 5):
+            if (current_room[1] < 1) or (current_room[1] > 4):
                 return False
         return True
 
@@ -52,25 +53,32 @@ class SecureVault():
         return False
 
     def __build_graph(self, path):
-        if len(path) < 50:
-            self.G[path] = {}
-            for i in self.__open_doors(path):
-                if self.__path_is_in_bounds(path+i):
-                    self.G[path][path+i] = 1
-            for potential_path in self.G[path]:
-                if not self.__room_is_vault(potential_path):
-                    self.__build_graph(potential_path)
-                else:
-                    self.possible_path_to_vault.append(potential_path)
+        self.G[path] = {}
+        for i in self.__open_doors(path):
+            if self.__path_is_in_bounds(path+i):
+                self.G[path][path+i] = 1
+                print(self.G)
+        for potential_path in self.G[path]:
+            if not self.__room_is_vault(potential_path):
+                self.__build_graph(potential_path)
+            else:
+                self.possible_path_to_vault.append(potential_path)
+        del self.G[path]
 
 
 def star1(passcode):
     sv = SecureVault(passcode)
     return min(sv.possible_path_to_vault, key=len)
 
+def star2(passcode):
+    sv = SecureVault(passcode)
+    return len(max(sv.possible_path_to_vault, key=len))
 
 if __name__ == '__main__':
     PASSCODE = "gdjjyniy"
     print("Star 1: ", star1(PASSCODE))
-#    print("Star 2: ", star2())
+    print("Star 2: ", star2(PASSCODE))
+
+
+
 
