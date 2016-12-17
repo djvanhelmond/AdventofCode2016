@@ -12,7 +12,7 @@ class SecureVault():
     def __init__(self, passcode):
         self.__passcode = passcode
         self.__start_room = [1, 1]
-        self.__possible_path_to_vault = []
+        self.__paths_to_vault = []
         self.__G = {}
         self.__build_graph("")
 
@@ -53,14 +53,14 @@ class SecureVault():
             if self.__path_is_in_bounds(path+i):
                 self.__G[path][path+i] = 1
         for potential_path in self.__G[path]:
-            if not self.__room_is_vault(potential_path):
-                self.__build_graph(potential_path)
+            if self.__room_is_vault(potential_path):
+                self.__paths_to_vault.append(potential_path)
             else:
-                self.__possible_path_to_vault.append(potential_path)
+                self.__build_graph(potential_path)
         del self.__G[path]
 
     def return_path_list(self):
-        return self.__possible_path_to_vault
+        return self.__paths_to_vault
 
 
 
