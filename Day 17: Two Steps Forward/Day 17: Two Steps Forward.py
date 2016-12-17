@@ -57,7 +57,6 @@ class SecureVault():
         for i in self.__open_doors(path):
             if self.__path_is_in_bounds(path+i):
                 self.G[path][path+i] = 1
-                print(self.G)
         for potential_path in self.G[path]:
             if not self.__room_is_vault(potential_path):
                 self.__build_graph(potential_path)
