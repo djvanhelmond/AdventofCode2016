@@ -9,7 +9,7 @@ class TrappedFloor():
         self.__run()
 
     def __run(self):
-        for _ in (range(self.__total_rows-1)):
+        for _ in (range(1, self.__total_rows)):
             self.__row = ''.join([ "^" if ("." + self.__row + ".")[i-1:i+2] in self.__traps else '.' for i in range(1, len(self.__row) + 1) ])
             self.__safe_tiles += self.__row.count('.')
 
