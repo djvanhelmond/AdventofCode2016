@@ -32,7 +32,7 @@ class SecureVault():
             if char == "D": current_room[1] += 1
             if char == "L": current_room[0] -= 1
             if char == "R": current_room[0] += 1
-            if (current_room[0] < 1) or (current_room[0] > 4) or (current_room[1] < 1) or (current_room[1] > 4):
+            if any([(current_room[0] < 1), (current_room[0] > 4), (current_room[1] < 1), (current_room[1] > 4)]):
                 return False
         return True
 
