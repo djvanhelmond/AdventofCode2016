@@ -19,7 +19,6 @@ class Scrambler():
 
     def __scramble(self):
         for instruction in self.instructions:
-#            print(instruction)
             if "swap position" in instruction:
                 self.__swap_pos_X_Y(int(instruction.split()[2]),int(instruction.split()[5]))
             elif "swap letter" in instruction:
@@ -32,9 +31,6 @@ class Scrambler():
                 self.__reverse_pos_X_Y(int(instruction.split()[2]),int(instruction.split()[4]))
             elif "move position" in instruction:
                 self.__move_pos_X_Y(int(instruction.split()[2]),int(instruction.split()[5]))
-#            print(self.puzzle_input)
-#            print("===")
-
 
     def __swap_pos_X_Y(self, X, Y):
         scr = list(self.puzzle_input)
@@ -89,18 +85,5 @@ if __name__ == '__main__':
     scrambler = Scrambler("abcdefgh", INPUT)
     print("Star 1: ", scrambler.puzzle_input)
     print("Star 2: ", star2())
-
-
-
-
-
-# bdeac
-# abdec
-
-
-
-# abdec
-
-
 
 
