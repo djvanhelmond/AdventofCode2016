@@ -66,16 +66,23 @@ class HVAC():
     def find_shortest_path(self):
         return min([ self.__calc_path_len(path) for path in itertools.permutations(list(self.POI)) if path[0] == 0 ])
 
+    def find_shortest_path_loop(self):
+        return min([self.__calc_path_len(path + (0,)) for path in itertools.permutations(list(self.POI)) if path[0] == 0])
+
 
 def star1(layout):
     hvac = HVAC(layout)
     return hvac.find_shortest_path()
 
+def star2(layout):
+    hvac = HVAC(layout)
+    return hvac.find_shortest_path_loop()
+
 
 if __name__ == '__main__':
     INPUT = read_hvac_layout('./input')
     print("Star 1: ", star1(INPUT))
-#    print("Star 2: ", star2(INPUT))
+    print("Star 2: ", star2(INPUT))
 
 
 
