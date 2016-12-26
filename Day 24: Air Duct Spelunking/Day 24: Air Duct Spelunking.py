@@ -14,7 +14,7 @@ def read_hvac_layout(filename):
 
 class HVAC():
     def __init__(self, raw_input):
-        self.width = (len(raw_input[0]) - 1)
+        self.width = (len(raw_input[0]) - 1) # at the end of the string there is a newline we don't want, hence the "-1"
         self.height = len(raw_input)
         self.layout, self.POI = self.__parse_input(raw_input)
         self.G = self.__build_graph()
@@ -43,17 +43,13 @@ class HVAC():
                 if self.layout[i, j]:
                     G[(i, j)] = {}
                     if (i - 1 >= 0):
-                        if self.layout[i - 1, j]:
-                            G[(i, j)][(i - 1, j)] = 1
+                        if self.layout[i - 1, j]: G[(i, j)][(i - 1, j)] = 1
                     if (i + 1 < self.height):
-                        if self.layout[i + 1, j]:
-                            G[(i, j)][(i + 1, j)] = 1
+                        if self.layout[i + 1, j]: G[(i, j)][(i + 1, j)] = 1
                     if (j - 1 >= 0):
-                        if self.layout[i, j - 1]:
-                            G[(i, j)][(i, j - 1)] = 1
+                        if self.layout[i, j - 1]: G[(i, j)][(i, j - 1)] = 1
                     if (j + 1 < self.width):
-                        if self.layout[i, j + 1]:
-                            G[(i, j)][(i, j + 1)] = 1
+                        if self.layout[i, j + 1]: G[(i, j)][(i, j + 1)] = 1
         return G
 
     def __calc_distance_table(self):
