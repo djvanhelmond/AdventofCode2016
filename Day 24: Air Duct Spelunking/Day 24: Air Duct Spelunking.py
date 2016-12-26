@@ -70,14 +70,6 @@ class HVAC():
         return min([ self.__calc_path_len(path + (0,)) for path in itertools.permutations(list(self.POI)) if path[0] == 0 ])
 
 
-def star1(layout):
-    return
-
-def star2(layout):
-    hvac = HVAC(layout)
-    return
-
-
 if __name__ == '__main__':
     hvac = HVAC(read_hvac_layout('./input'))
     print("Star 1: ", hvac.find_shortest_path())
