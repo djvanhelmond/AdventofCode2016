@@ -67,7 +67,7 @@ class HVAC():
         return min([ self.__calc_path_len(path) for path in itertools.permutations(list(self.POI)) if path[0] == 0 ])
 
     def find_shortest_path_loop(self):
-        return min([self.__calc_path_len(path + (0,)) for path in itertools.permutations(list(self.POI)) if path[0] == 0])
+        return min([ self.__calc_path_len(path + (0,)) for path in itertools.permutations(list(self.POI)) if path[0] == 0 ])
 
 
 def star1(layout):
