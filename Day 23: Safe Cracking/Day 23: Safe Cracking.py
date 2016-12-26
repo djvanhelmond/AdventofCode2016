@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3
 from collections import defaultdict
+import time
 
 def read_instructions(filename):
     content = []
@@ -42,6 +43,8 @@ class HiddenSafe():
             self.program_counter += int(y) - 1
 
     def __tgl(self, x):
+        print(time.clock())
+        print(self.registers)
         if x.isalpha():
             x = self.registers[x]
         toggle_pc = self.program_counter + int(x) - 1
@@ -74,13 +77,16 @@ def star1(safe_instuction_list):
     return safe_behind_a_painting.registers["a"]
 
 def star2(safe_instuction_list):
-    return False
+    safe_behind_a_painting = HiddenSafe(safe_instuction_list)
+    safe_behind_a_painting.registers["a"] = 12
+    safe_behind_a_painting.run()
+    return safe_behind_a_painting.registers["a"]
 
 
 if __name__ == '__main__':
     INPUT = read_instructions('./input')
     print("Star 1: ", star1(INPUT))
-#    print("Star 2: ", star2(INPUT))
+    print("Star 2: ", star2(INPUT))
 
 
 
