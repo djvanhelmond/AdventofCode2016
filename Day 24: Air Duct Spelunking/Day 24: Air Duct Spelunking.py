@@ -74,9 +74,3 @@ if __name__ == '__main__':
     hvac = HVAC(read_hvac_layout('./input'))
     print("Star 1: ", hvac.find_shortest_path())
     print("Star 2: ", hvac.find_shortest_path_loop())
-
-
-
-
-
-
