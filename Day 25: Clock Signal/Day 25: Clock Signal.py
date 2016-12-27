@@ -53,13 +53,13 @@ class BunnyAntenna():
                 return True
             else:
                 self.__reset()
+                self.a_init += 1
+                self.registers['a'] = str(self.a_init)
         return False
 
     def __reset(self):
-        self.a_init += 1
-        self.registers = defaultdict(int)
-        self.registers['a'] = str(self.a_init)
         self.program_counter = 0
+        self.registers = defaultdict(int)
         self.stdout = []
 
     def __execute(self):
