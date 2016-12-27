@@ -16,6 +16,7 @@ class BunnyAntenna():
         self.instruction_list = [ instruction.split() for instruction in instruction_list ]
         self.program_counter = 0
         self.registers = defaultdict(int)
+        self.clock = []
         self.__instr_set = {
             'cpy': self.__cpy,
             'inc': self.__inc,
@@ -23,7 +24,6 @@ class BunnyAntenna():
             'jnz': self.__jnz,
             'out': self.__out
         }
-        self.stdout = []
 
     def __cpy(self, x, y):
         if x.isalpha():
@@ -45,11 +45,11 @@ class BunnyAntenna():
             self.program_counter += int(y) - 1
 
     def __out(self, x):
-        self.stdout.append(self.registers['b'])
+        self.clock.append(self.registers['b'])
 
     def __is_repeating(self, sample_len):
-        if len(self.stdout) > sample_len:
-            if (sum(self.stdout[::2]) == 0 and sum(self.stdout[1::2]) == sample_len/2):
+        if len(self.clock) > sample_len:
+            if (sum(self.clock[::2]) == 0 and sum(self.clock[1::2]) == sample_len/2):
                 return True
             else:
                 self.__reset()
@@ -60,7 +60,7 @@ class BunnyAntenna():
     def __reset(self):
         self.program_counter = 0
         self.registers = defaultdict(int)
-        self.stdout = []
+        self.clock = []
 
     def __execute(self):
         instruction_register = self.instruction_list[self.program_counter]
