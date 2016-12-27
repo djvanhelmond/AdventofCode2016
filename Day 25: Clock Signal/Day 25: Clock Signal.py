@@ -42,7 +42,7 @@ class BunnyAntenna():
             self.program_counter += int(y) - 1
 
     def __out(self, x):
-        self.clock.append(self.registers['b'])
+        self.clock.append(self.registers[x])
 
     def __is_repeating(self, sample_len):
         if len(self.clock) > sample_len:
