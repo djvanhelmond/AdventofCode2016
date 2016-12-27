@@ -26,8 +26,7 @@ class BunnyAntenna():
         }
 
     def __cpy(self, x, y):
-        if x.isalpha():
-            x = self.registers[x]
+        if x.isalpha(): x = self.registers[x]
         self.registers[y] = int(x)
 
     def __inc(self, x):
@@ -37,10 +36,8 @@ class BunnyAntenna():
         self.registers[x] -= 1
 
     def __jnz(self, x, y):
-        if x.isalpha():
-            x = self.registers[x]
-        if y.isalpha():
-            y = self.registers[y]
+        if x.isalpha(): x = self.registers[x]
+        if y.isalpha(): y = self.registers[y]
         if int(x) != 0:
             self.program_counter += int(y) - 1
 
