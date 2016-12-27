@@ -10,7 +10,7 @@ def read_instructions(filename):
     return content
 
 
-class HiddenSafe():
+class BunnyAntenna():
     def __init__(self, instruction_list):
         self.a_init = 0
         self.instruction_list = [ instruction.split() for instruction in instruction_list ]
@@ -49,8 +49,7 @@ class HiddenSafe():
 
     def __is_repeating(self, sample_len):
         if len(self.stdout) > sample_len:
-            if (sum(self.stdout[::2]) == 0 and sum(self.stdout[1::2]) == sample_len/2) or \
-                    (sum(self.stdout[::2]) == sample_len/2 and sum(self.stdout[1::2]) == 0):
+            if (sum(self.stdout[::2]) == 0 and sum(self.stdout[1::2]) == sample_len/2):
                 return True
             else:
                 self.__reset()
@@ -69,14 +68,14 @@ class HiddenSafe():
         self.__instr_set[instruction_register[0]](*instruction_register[1:])
 
     def run(self):
-        while self.program_counter < len(self.instruction_list) and not self.__is_repeating(10):
+        while not self.__is_repeating(10):
             self.__execute()
 
 
 def star1(safe_instuction_list):
-    safe_behind_a_painting = HiddenSafe(safe_instuction_list)
-    safe_behind_a_painting.run()
-    return safe_behind_a_painting.a_init
+    ba = BunnyAntenna(safe_instuction_list)
+    ba.run()
+    return ba.a_init
 
 
 if __name__ == '__main__':
