@@ -5,11 +5,7 @@ import itertools
 
 
 def read_hvac_layout(filename):
-    content = []
-    with open(filename) as input_file:
-        for lines in input_file:
-            content.append(list(lines))
-    return content
+    return open(filename).readlines()
 
 
 class HVAC():
