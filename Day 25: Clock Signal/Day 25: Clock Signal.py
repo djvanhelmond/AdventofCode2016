@@ -3,11 +3,7 @@ from collections import defaultdict
 import time
 
 def read_instructions(filename):
-    content = []
-    with open(filename) as input_file:
-        for lines in input_file:
-            content.append(lines)
-    return content
+    return open(filename).readlines()
 
 
 class BunnyAntenna():
