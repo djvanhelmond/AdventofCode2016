@@ -57,7 +57,7 @@ class Bot():
 
 
 def star1():
-    for n in bots:
+    for n in bots.keys():
         if (min(bots[n].microchips) == 17) and (max(bots[n].microchips) == 61):
             return bots[n].bot_id
 
@@ -70,7 +70,9 @@ if __name__ == '__main__':
     INPUT = (read_input_moves('./input'))
 
     # first time, read all lines that contain instruction to setup bots
-    bots = {}   # a list that will contain all the bots, with their instructions loaded
+    bots = {}   # a dict that will contain all the bots, with their instructions loaded
+    outputs = {} # a dict that will contain all the outputs
+
     for line in INPUT:
         if line.split()[0] == 'bot':
             b_id = int(line.split()[1])                         # assign Bot_ID
@@ -86,12 +88,11 @@ if __name__ == '__main__':
     # at this moment the bots{} dict contains all the bots with their instructions and input
     # microchips loaded
 
-    outputs = {} # a list that will contain all the outputs
     # with all the input microchips loaded, there must now be bots that are actionable (i.e. have
     # enough microchips to hand them over to the next bot).
     # this loop will keep running as long as there are bots that have enough microchips.
-    while any([bots[n].is_actionable for n in range(len(bots))]):
-        for n in range(len(bots)):
+    while any([bots[n].is_actionable for n in bots.keys()]):
+        for n in bots.keys():
             if bots[n].is_actionable:
                 bots[n].execute()
 
