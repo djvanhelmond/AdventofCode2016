@@ -1,11 +1,7 @@
 #!/usr/local/bin/python3
 
 def read_input_moves(filename):
-    content = []
-    with open(filename) as input_file:
-        for lines in input_file:
-            content.append(lines)
-    return content
+    return open(filename).readlines()
 
 
 class Bot():
