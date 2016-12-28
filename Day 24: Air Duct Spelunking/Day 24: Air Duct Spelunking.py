@@ -5,7 +5,8 @@ import itertools
 
 
 def read_hvac_layout(filename):
-    return open(filename).readlines()
+    with open(filename) as f:
+        return f.readlines()
 
 
 class HVAC():
